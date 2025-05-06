@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AddNoteScreen extends StatefulWidget {
   const AddNoteScreen({super.key});
@@ -10,6 +11,7 @@ class AddNoteScreen extends StatefulWidget {
 
 class AddNoteScreenState extends State<AddNoteScreen> {
   final TextEditingController _controller = TextEditingController();
+  final user = FirebaseAuth.instance.currentUser;
 
   void _saveNote() async {
     final text = _controller.text;
@@ -18,6 +20,7 @@ class AddNoteScreenState extends State<AddNoteScreen> {
       await FirebaseFirestore.instance.collection('notes').add({
         'text': text,
         'timestamp': FieldValue.serverTimestamp(),
+        'userId': user?.uid,
       });
       Navigator.pop(context); // schließt das aktuelle Fenster -->kehrt zurück zur Liste
     }

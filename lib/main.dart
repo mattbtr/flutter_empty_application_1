@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_empty_application_1/pages/auth_logic.dart';
 import 'pages/home_screen.dart';
 //import 'pages/add_notes_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,9 +26,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Your Notes',
+      title: 'Authentification',
       theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blue),
-      home: HomeScreen(), // Startbildschirm ist die Notizübersicht
+      home: AuthLogic(), // Startbildschirm ist die Authentifizierung
     );
   }
 }
