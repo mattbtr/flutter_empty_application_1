@@ -68,13 +68,56 @@ class HomeScreen extends StatelessWidget{
               return ListView.builder(
                 itemCount: notes.length,
                 itemBuilder: (context, index) {
-                  final noteData = notes[index].data() as Map<String, dynamic>;
-                  final text = noteData['text'] ?? 'Not found the note';
+                  final note = notes[index];
+                  final noteId = note.id;
+                  final noteData = note.data() as Map<String, dynamic>;
+                  final noteText = noteData['text'] ?? 'Not found the note';
 
-                  return ListTile(
-                    title: Text(text)
+                  return Dismissible(
+                    key: Key(noteId), 
+                    direction: DismissDirection.horizontal,
+                    onDismissed: (_) async {
+                      await FirebaseFirestore.instance
+                        .collection('notes')
+                        .doc(noteId)
+                        .delete();
+                      
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('note deleted')),
+                      );
+                    },
+                    background: Container(
+                      color: Colors.red,
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Icon(Icons.delete, color: Colors.white),
+                    ),
+
+                    child: ListTile(
+                    title: Text(noteText),
+                    trailing: IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => AddNoteScreen(
+                              existingNoteId: note.id,
+                              initialText: noteData['text'],
+                            ),
+                          ),
+                        );
+                      },
+                      ),
+                    // Wenn ich will noch mehr Informationen anzeigen wie timestamp??
+                  ),
+
                   );
-                },
+
+                  
+
+                }, //Itembuilder
+                
               );
 
               },
