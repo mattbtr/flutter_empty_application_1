@@ -6,12 +6,17 @@ class RegisterScreen extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  RegisterScreen({super.key});
+
   void register(BuildContext context) async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
         );
+
+         if (!context.mounted) return; // schützt vor ungültigem Kontext
+
       Navigator.pop(context);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Resistration failed: $e')));
@@ -20,7 +25,7 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    //
     return Scaffold(
       appBar: AppBar(title: const Text('Register'),),
       body: Padding(

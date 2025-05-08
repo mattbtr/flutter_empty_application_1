@@ -4,10 +4,12 @@ import 'home_screen.dart';
 import 'login_screen.dart';
 
 class AuthLogic extends StatelessWidget {
+  const AuthLogic({super.key});
+
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    // 
     return StreamBuilder<User?> (
       stream: FirebaseAuth.instance.authStateChanges(), 
       builder: (context, snapshot) {

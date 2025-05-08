@@ -4,6 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeScreen extends StatelessWidget{
+  
+  const HomeScreen({super.key});
+
   /*
   //final List<String> dummyNotes = [
     'Einkaufsliste schreiben',
@@ -21,7 +24,7 @@ class HomeScreen extends StatelessWidget{
   Widget build (BuildContext context){
 
     final userEmail = FirebaseAuth.instance.currentUser?.email?? 'Unbekannt';
-    final user = FirebaseAuth.instance.currentUser;
+    //final user = FirebaseAuth.instance.currentUser;
     
 
     return Scaffold(
@@ -81,6 +84,9 @@ class HomeScreen extends StatelessWidget{
                         .collection('notes')
                         .doc(noteId)
                         .delete();
+
+                         if (!context.mounted) return;  //schützt vor ungültigem Kontext, d.h. wenn Context null ist
+                                                        // z.b Scaffoldmessage anzeigen von context der null ist führt zum Absturz
                       
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('note deleted')),

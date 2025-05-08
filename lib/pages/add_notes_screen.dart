@@ -50,7 +50,9 @@ class AddNoteScreenState extends State<AddNoteScreen> {
           'userId': user?.uid,
         });
       }
-      
+
+       if (!mounted) return; //schützt vor ungültigem Kontext
+
       Navigator.pop(context); // schließt das aktuelle Fenster -->kehrt zurück zur Liste
     }
   }

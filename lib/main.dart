@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_empty_application_1/pages/auth_logic.dart';
-import 'pages/home_screen.dart';
+//import 'pages/home_screen.dart';
 //import 'pages/add_notes_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';

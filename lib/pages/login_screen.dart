@@ -7,6 +7,8 @@ class LoginScreen extends StatelessWidget{
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  LoginScreen({super.key});
+
   void login(BuildContext context) async {
 
     try{
@@ -16,6 +18,9 @@ class LoginScreen extends StatelessWidget{
         password: passwordController.text.trim(),
       );
     } catch (e) {
+
+       if (!context.mounted) return; // schützt vor ungültigem Kontext
+       
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Login failed: $e')));
     }
 
