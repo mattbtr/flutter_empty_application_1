@@ -8,6 +8,7 @@ class RegisterScreen extends StatelessWidget {
 
   RegisterScreen({super.key});
 
+  // Registrierungs-Logik (Funktion)
   void register(BuildContext context) async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -32,9 +33,13 @@ class RegisterScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child : Column(
           children: [
+
             TextField(controller: emailController, decoration: const InputDecoration(labelText: 'E-Mail'),),
             TextField(controller: passwordController, decoration: const InputDecoration(labelText: 'Passowrd'),),
+
             const SizedBox(height: 16,),
+
+            // Register-Button: Bei Drücken wird Register-Funktion von oben ausgeführt
             ElevatedButton(onPressed: () => register(context), child: const Text("Register"))
             
           ],
